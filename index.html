@@ -1,0 +1,201 @@
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💕 이름 궁합 테스트 💕</title>
+
+<style>
+    *{
+        box-sizing:border-box;
+        font-family:"Malgun Gothic", sans-serif;
+    }
+
+    body{
+        margin:0;
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        background:linear-gradient(135deg,#fff7d6,#ffe7b8);
+    }
+
+    .card{
+        width:min(500px,90%);
+        background:white;
+        padding:35px;
+        border-radius:25px;
+        text-align:center;
+        box-shadow:0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    h1{
+        margin-top:0;
+        color:#d46b9d;
+        font-size:40px;
+    }
+
+    p{
+        color:#666;
+        font-size:18px;
+    }
+
+    input{
+        width:100%;
+        padding:15px;
+        margin:10px 0;
+        border:2px solid #ffd2e6;
+        border-radius:12px;
+        font-size:18px;
+        text-align:center;
+    }
+
+    button{
+        margin-top:15px;
+        padding:15px 30px;
+        border:none;
+        border-radius:12px;
+        background:#ff7eb6;
+        color:white;
+        font-size:20px;
+        font-weight:bold;
+        cursor:pointer;
+    }
+
+    button:hover{
+        background:#ff5ea4;
+    }
+
+    #result{
+        display:none;
+        margin-top:25px;
+        padding:20px;
+        background:#fff7fb;
+        border-radius:15px;
+    }
+
+    .percent{
+        font-size:65px;
+        font-weight:bold;
+        color:#ff4d94;
+        margin:10px 0;
+    }
+
+    .message{
+        font-size:22px;
+        font-weight:bold;
+        color:#555;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1>💕 이름 궁합 테스트 💕</h1>
+
+    <p>두 사람의 이름을 입력해보세요!</p>
+
+    <input id="name1" placeholder="첫 번째 이름">
+    <input id="name2" placeholder="두 번째 이름">
+
+    <button onclick="checkLove()">궁합 보기 💘</button>
+
+    <div id="result">
+        <h2 id="pair"></h2>
+
+        <div class="percent" id="percent"></div>
+
+        <div class="message" id="message"></div>
+
+        <br>
+
+        <button onclick="resetTest()">다시 하기 🔄</button>
+    </div>
+
+</div>
+
+<script>
+
+function calculatePercent(name1, name2){
+
+    let text = name1 + name2;
+
+    let sum = 0;
+
+    for(let i=0; i<text.length; i++){
+        sum += text.charCodeAt(i);
+    }
+
+    let percent = (sum * 7) % 101;
+
+    if(percent < 20){
+        percent += 20;
+    }
+
+    return percent;
+}
+
+function checkLove(){
+
+    const name1 =
+        document.getElementById("name1").value.trim();
+
+    const name2 =
+        document.getElementById("name2").value.trim();
+
+    if(name1 === "" || name2 === ""){
+        alert("이름을 모두 입력해주세요!");
+        return;
+    }
+
+    const percent =
+        calculatePercent(name1, name2);
+
+    let message = "";
+
+    if(percent >= 90){
+        message = "💖 천생연분 수준이에요!";
+    }
+    else if(percent >= 75){
+        message = "😍 정말 잘 맞는 궁합!";
+    }
+    else if(percent >= 60){
+        message = "😊 좋은 친구 또는 좋은 인연!";
+    }
+    else if(percent >= 40){
+        message = "🤔 조금 더 알아가 보세요!";
+    }
+    else{
+        message = "😅 노력하면 가까워질 수 있어요!";
+    }
+
+    document.getElementById("pair").textContent =
+        name1 + " ❤️ " + name2;
+
+    document.getElementById("percent").textContent =
+        percent + "%";
+
+    document.getElementById("message").textContent =
+        message;
+
+    document.getElementById("result").style.display =
+        "block";
+}
+
+function resetTest(){
+
+    document.getElementById("name1").value = "";
+    document.getElementById("name2").value = "";
+
+    document.getElementById("result").style.display =
+        "none";
+}
+
+</script>
+
+</body>
+</html>
+```
